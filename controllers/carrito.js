@@ -62,7 +62,6 @@ const getProductsController = async (req, res)=>{
     const user = req.user;
     const id = user.carritoactual;
     const eliminarProd = await deleteProdFromCart(id, prod)
-    console.log(eliminarProd)
     res.redirect(`/api/carrito/${id}/productos`)    
     logger.log("info", "/api/carrito/productos - POST")
   }

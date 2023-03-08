@@ -4,18 +4,20 @@ const adminRouter = Router();
 const {    
     allProductsAdminController,
     addProductAdminController,
-    //UpdateProductoAdminController,
-    //deleteProdAdminController
-} = require("../controllers/productos")
+    prodToUpdateAdminController,
+    UpdateProductAdminController,
+    deleteProdAdminController
+} = require("../controllers/admin")
 
 adminRouter.get("/",  allProductsAdminController)
 
-
 adminRouter.post("/", addProductAdminController);
 
-//adminRouter.post("/:id",  UpdateProductoAdminController)
-//puesto en el form de vista-productos en botón eliminar
-//adminRouter.post("/del/:id",  deleteProdAdminController)
+adminRouter.post("/update",  prodToUpdateAdminController)
+
+adminRouter.post("/update-prod",  UpdateProductAdminController)
+
+adminRouter.post("/delete",  deleteProdAdminController)
 
 
 

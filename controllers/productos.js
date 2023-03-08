@@ -64,28 +64,6 @@ const {
         }
       }
     
-    const allProductsAdminController = async (req, res)=>{
-      console.log("llega allProductsAdminController")
-        const { username, password, nombre } = req.user;
-        const user = { username, password, nombre };
-        const productos = await allProductsAdmin()
-        
-        res.render("vista-productos", {user, productos});
-      }
-
-/*
-      const addProductAdminController = async (req, res)=>{
-
-      }
-
-      const UpdateProductoAdminController = async (req, res)=>{
-
-      }
-
-      const deleteProdAdminController = async (req, res)=>{
-
-      }
-      */
 
 module.exports = {
   allProductsController,
@@ -93,11 +71,7 @@ module.exports = {
   filterByCategoryController,
   postCategoryAndProdController,
   getProductController,
-  keepShoppingController,
-  allProductsAdminController,
-    //addProductAdminController,
-    //UpdateProductoAdminController,
-    //deleteProdAdminController
+  keepShoppingController
 }
 
 

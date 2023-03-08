@@ -3,6 +3,9 @@ const {
     findById,
     AllProducts,
     listCategory,
+    saveP,
+    findProdUpdate,
+    delProdFromDB
     } = require("../models/productos")
 const { findUser} = require("./usuarios")
 
@@ -50,7 +53,7 @@ const getProduct = async (id)=>{
     title: producto.title,
     thumbnail: producto.thumbnail,
     price: producto.price,
-    id: id,
+    _id: id,
     category:producto.category
     }
     return prod
@@ -87,22 +90,19 @@ const keepShopping = async (username) =>{
         }
 }
 
-
-
-const allProductsAdmin = async ()=>{
-    const listaProductos = await AllProducts();
-    const todosProd = listaProductos.map( (item) => (
-      {
-        id: item._id,
-        title:item.title,
-        price:item.price,
-        thumbnail:item.thumbnail,
-        category:item.category
-      }
-    ))
-    return todosProd
+const saveNewProd = async(objProd)=>{
+  const saveInDB = await saveP(objProd)
 }
 
+const findProductAndUpdate = async (idprod, newTitle, newPrice, newThumbnail, newCategory)=>{
+  const modifProd = await findProdUpdate(idprod, newTitle, newPrice, newThumbnail, newCategory)
+  return modifProd
+}
+
+const deleteProdFromDB = async (idprod)=>{
+  const productoEliminado = await delProdFromDB(idprod)
+  return productoEliminado
+}
 
 module.exports = {
     getAllProducts,
@@ -110,5 +110,7 @@ module.exports = {
     getProduct,
     keepShopping,
     findCurrentCart,
-    allProductsAdmin    
+    saveNewProd,
+    findProductAndUpdate,
+    deleteProdFromDB    
 }

@@ -1,3 +1,5 @@
+const logger = require("../logger/winston-logger")
+
 const mongoose = require("mongoose");
 mongoose.set('strictQuery', false)
 const ProductoSchema = new mongoose.Schema({
@@ -8,7 +10,6 @@ const ProductoSchema = new mongoose.Schema({
 });
 
 const ProdModel = mongoose.model("productos", ProductoSchema);
-
 
 const AllProducts = async ()=>{
     const productos = await ProdModel.find({});
@@ -34,11 +35,40 @@ const findById = async (id)=>{
     return prod
 }
 
+const saveP = async(objProd)=>{
+  const nuevoProd = new ProdModel({
+    title: objProd.title,
+    price: objProd.price,
+    thumbnail: objProd.thumbnail,
+    category:objProd.category
+  });
+    const prodGuardado = await nuevoProd.save()
+    logger.log("info", "nuevo producto guardado")
+}
 
+const findProdUpdate = async (idprod, newTitle, newPrice, newThumbnail, newCategory)=>{
+const modificarProdDB = ProdModel.findOneAndUpdate(
+  {_id: idprod},
+  {
+    title: newTitle,
+    price: newPrice,
+    thumbnail:newThumbnail,
+    category: newCategory
+  })
+  return modificarProdDB
 
+}
+
+const delProdFromDB = async (idprod)=>{
+  const delProd = await ProdModel.deleteOne({_id: idprod})
+  return "producto eliminado"
+}
 
 module.exports = {
     AllProducts,
     listCategory,
-    findById
+    findById,
+    saveP,
+    findProdUpdate,
+    delProdFromDB
 }
